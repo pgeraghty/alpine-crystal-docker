@@ -1,0 +1,15 @@
+language: minimal
+
+services:
+  - docker
+
+env:
+  - DOCKERFILE="crystal_0.27-alpine_3.9.Dockerfile" CRYSTAL_VERSION="0.27"
+  - DOCKERFILE="crystal_0.29-alpine_3.10.Dockerfile" CRYSTAL_VERSION="0.29"
+  - DOCKERFILE="crystal_0.30-alpine_edge.Dockerfile" CRYSTAL_VERSION="0.30"
+
+script:
+  - docker build -f $DOCKERFILE -t alpine-crystal-$CRYSTAL_VERSION .
+  - docker images
+  - docker run --rm -it alpine-crystal-$CRYSTAL_VERSION crystal --version
+  - docker run --rm -it alpine-crystal-$CRYSTAL_VERSION shards --version
