@@ -9,7 +9,17 @@ env:
   - DOCKERFILE="crystal_0.30-alpine_edge.Dockerfile" CRYSTAL_VERSION="0.30"
 
 script:
+  - cat /proc/version
+  
   - docker build -f $DOCKERFILE -t alpine-crystal-$CRYSTAL_VERSION .
   - docker images
-  - docker run --rm -it alpine-crystal-$CRYSTAL_VERSION crystal --version
+  
+  - ACTUAL_CRYSTAL_VERSION=$(docker run --rm -it alpine-crystal-$CRYSTAL_VERSION crystal --version)
+  - echo $ACTUAL_CRYSTAL_VERSION
+  - |
+    if ! echo $ACTUAL_CRYSTAL_VERSION | grep "Crystal $CRYSTAL_VERSION"; then
+      echo "Crystal version mismatch; expected $CRYSTAL_VERSION"
+      exit 1
+    fi
+
   - docker run --rm -it alpine-crystal-$CRYSTAL_VERSION shards --version
