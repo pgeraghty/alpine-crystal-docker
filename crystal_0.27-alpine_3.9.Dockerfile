@@ -5,7 +5,6 @@ RUN apk add --update --no-cache --force-overwrite \
         g++ \
         gc-dev \
         libevent-dev \
-        libevent-static \
         libxml2-dev \
         llvm5 \
         llvm5-dev \
