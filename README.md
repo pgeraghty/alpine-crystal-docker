@@ -1,5 +1,10 @@
 # Alpine Crystal image
 
+[![Docker Automated build](https://img.shields.io/docker/cloud/automated/pgeraghty/alpine-crystal.svg)](https://hub.docker.com/r/pgeraghty/alpine-crystal "Docker Automated Build") 
+[![Docker Build Status](https://img.shields.io/docker/cloud/build/pgeraghty/alpine-crystal.svg)](https://hub.docker.com/r/pgeraghty/alpine-crystal "Docker Build Status") 
+[![Docker Stars](https://img.shields.io/docker/stars/pgeraghty/alpine-crystal.svg)](https://hub.docker.com/r/pgeraghty/alpine-crystal "Docker Stars") 
+[![Docker Pulls](https://img.shields.io/docker/pulls/pgeraghty/alpine-crystal.svg)](https://hub.docker.com/r/pgeraghty/alpine-crystal "Docker Pulls")
+
 Alpine image with Crystal installed alongside sufficient packages to build statically-linked Crystal applications for easy deployment and distribution.
 
 ## Available Docker tags
