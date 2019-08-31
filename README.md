@@ -1,7 +1,7 @@
 # Alpine Crystal image
 
+[![Build Status](https://travis-ci.com/pgeraghty/alpine-crystal-docker.svg?branch=master)](https://travis-ci.com/pgeraghty/alpine-crystal-docker)
 [![Docker Automated build](https://img.shields.io/docker/cloud/automated/pgeraghty/alpine-crystal.svg)](https://hub.docker.com/r/pgeraghty/alpine-crystal "Docker Automated Build") 
-[![Docker Build Status](https://img.shields.io/docker/cloud/build/pgeraghty/alpine-crystal.svg)](https://hub.docker.com/r/pgeraghty/alpine-crystal "Docker Build Status") 
 [![Docker Stars](https://img.shields.io/docker/stars/pgeraghty/alpine-crystal.svg)](https://hub.docker.com/r/pgeraghty/alpine-crystal "Docker Stars") 
 [![Docker Pulls](https://img.shields.io/docker/pulls/pgeraghty/alpine-crystal.svg)](https://hub.docker.com/r/pgeraghty/alpine-crystal "Docker Pulls")
 
