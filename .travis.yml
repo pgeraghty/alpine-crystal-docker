@@ -11,10 +11,11 @@ env:
 script:
   - cat /proc/version
   
-  - docker build -f $DOCKERFILE -t alpine-crystal-$CRYSTAL_VERSION .
+  - DOCKER_IMAGE="alpine-crystal-$CRYSTAL_VERSION"
+  - docker build -f $DOCKERFILE -t $DOCKER_IMAGE .
   - docker images
   
-  - ACTUAL_CRYSTAL_VERSION=$(docker run --rm -it alpine-crystal-$CRYSTAL_VERSION crystal --version)
+  - ACTUAL_CRYSTAL_VERSION=$(docker run --rm -it $DOCKER_IMAGE crystal --version)
   - echo $ACTUAL_CRYSTAL_VERSION
   - |
     if ! echo $ACTUAL_CRYSTAL_VERSION | grep "Crystal $CRYSTAL_VERSION"; then
@@ -22,4 +23,19 @@ script:
       exit 1
     fi
 
-  - docker run --rm -it alpine-crystal-$CRYSTAL_VERSION shards --version
+  - docker run --rm -it $DOCKER_IMAGE shards --version
+
+  - |
+    echo '# prevents segfault during static linking on Alpine, ignored otherwise
+    {% if flag?(:static) %}
+      require "llvm/lib_llvm"
+      require "llvm/enums"
+    {% end %}
+    
+    puts "Hello, World!"' > test_app.cr
+
+  - >
+    docker run --rm --user $(id -u) --env UID=$(id -u) --env GID=$(id -g) -it -v $PWD:/app -w /app $DOCKER_IMAGE 
+    crystal build --static --release --no-debug test_app.cr
+  - ls -l test_app
+  - ./test_app
