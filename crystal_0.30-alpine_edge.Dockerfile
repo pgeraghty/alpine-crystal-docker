@@ -7,10 +7,10 @@ RUN apk add --update --no-cache --force-overwrite \
         libevent-dev \
         libevent-static \
         libxml2-dev \
-        llvm5 \
-        llvm5-dev \
-        llvm5-libs \
-        llvm5-static \
+        llvm8 \
+        llvm8-dev \
+        llvm8-libs \
+        llvm8-static \
         make \
         musl-dev \
         openssl-dev \
