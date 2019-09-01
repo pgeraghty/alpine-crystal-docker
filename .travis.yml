@@ -40,7 +40,7 @@ script:
     puts "Hello, World!"' > test_app.cr
 
   - >
-    docker run --rm --user $(id -u) --env UID=$(id -u) --env GID=$(id -g) -it -v $PWD:/app -w /app $DOCKER_IMAGE 
+    docker run --rm --user $(id -u) --env UID=$(id -u) --env GID=$(id -g) -it -v $PWD:/app -w /app $DOCKER_IMAGE
     crystal build --static --release --no-debug test_app.cr
   - ls -l test_app
   - ./test_app

@@ -1,7 +1,8 @@
-FROM alpine:edge
+FROM alpine:3.10
 
-RUN apk add --update --no-cache --force-overwrite \
-        crystal~=0.30 \
+RUN echo '@edge http://dl-cdn.alpinelinux.org/alpine/edge/community' >> /etc/apk/repositories \
+    && apk add --no-cache --force-overwrite \
+        crystal@edge~=0.30 \
         g++ \
         gc-dev \
         libevent-dev \
@@ -12,7 +13,7 @@ RUN apk add --update --no-cache --force-overwrite \
         llvm8-libs \
         llvm8-static \
         make \
-        musl-dev \
+        musl-dev \        
         openssl-dev \
         pcre-dev \
         readline-dev \
