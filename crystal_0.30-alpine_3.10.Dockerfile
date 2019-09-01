@@ -13,7 +13,9 @@ RUN echo '@edge http://dl-cdn.alpinelinux.org/alpine/edge/community' >> /etc/apk
         llvm8-libs \
         llvm8-static \
         make \
-        musl-dev \        
+        musl \
+        musl-dev \
+        musl-utils \       
         openssl-dev \
         pcre-dev \
         readline-dev \
