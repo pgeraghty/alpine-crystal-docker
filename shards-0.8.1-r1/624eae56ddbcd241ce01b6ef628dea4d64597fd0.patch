@@ -1,0 +1,81 @@
+From 624eae56ddbcd241ce01b6ef628dea4d64597fd0 Mon Sep 17 00:00:00 2001
+From: "Brian J. Cardiff" <bcardiff@gmail.com>
+Date: Thu, 1 Aug 2019 09:58:44 -0300
+Subject: [PATCH] Check shards 0.8 works on Crystal v0.30.0
+
+---
+ shard.lock                     |  2 +-
+ test/integration/build_test.cr |  4 ++--
+ test/integration/prune_test.cr | 13 +++++++------
+ 3 files changed, 10 insertions(+), 9 deletions(-)
+
+diff --git a/shard.lock b/shard.lock
+index 5f4ae93..259b864 100644
+--- a/shard.lock
++++ b/shard.lock
+@@ -2,5 +2,5 @@ version: 1.0
+ shards:
+   minitest:
+     github: ysbaddaden/minitest.cr
+-    version: 0.4.0
++    version: 0.4.3
+ 
+diff --git a/test/integration/build_test.cr b/test/integration/build_test.cr
+index 861c064..6d03967 100644
+--- a/test/integration/build_test.cr
++++ b/test/integration/build_test.cr
+@@ -60,14 +60,14 @@ class BuildCommandTest < Minitest::Test
+   end
+ 
+   def test_reports_error_when_target_failed_to_compile
+-    File.write File.join(application_path, "src", "cli.cr"), "a = ..."
++    File.write File.join(application_path, "src", "cli.cr"), "a = ...."
+ 
+     Dir.cd(application_path) do
+       ex = assert_raises(FailedCommand) do
+         run "shards build --no-color app"
+       end
+       assert_match "target app failed to compile", ex.stdout
+-      assert_match "Syntax error", ex.stdout
++      assert_match "unexpected token", ex.stdout
+       refute File.exists?(bin_path("app"))
+     end
+   end
+diff --git a/test/integration/prune_test.cr b/test/integration/prune_test.cr
+index 19107db..b1e8333 100644
+--- a/test/integration/prune_test.cr
++++ b/test/integration/prune_test.cr
+@@ -3,13 +3,13 @@ require "../integration_helper"
+ class PruneCommandTest < Minitest::Test
+   def setup
+     metadata = {
+-      dependencies: { web: "*", orm: "*", },
+-      development_dependencies: { mock: "*" },
++      dependencies:             {web: "*", orm: "*"},
++      development_dependencies: {mock: "*"},
+     }
+     with_shard(metadata) { run "shards install" }
+ 
+     metadata = {
+-      dependencies: { web: "*" }
++      dependencies: {web: "*"},
+     }
+     with_shard(metadata) { run "shards update" }
+   end
+@@ -26,12 +26,13 @@ class PruneCommandTest < Minitest::Test
+   end
+ 
+   def test_wont_remove_files
+-    File.write(File.join(application_path, "lib", ".keep"), "")
++    File.write(File.join(application_path, "lib", ".keep_hidden"), "")
++    File.write(File.join(application_path, "lib", "keep_not_hidden"), "")
+     Dir.cd(application_path) { run "shards prune" }
+-    assert_equal [".keep", "web"], installed_dependencies.sort
++    assert_equal [".keep_hidden", "keep_not_hidden", "web"], installed_dependencies.sort
+   end
+ 
+   private def installed_dependencies
+-    Dir[File.join(application_path, "lib", "*")].map { |path| File.basename(path) }
++    Dir.glob(File.join(application_path, "lib", "*"), match_hidden: true).map { |path| File.basename(path) }
+   end
+ end

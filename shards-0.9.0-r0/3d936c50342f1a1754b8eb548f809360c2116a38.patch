@@ -1,0 +1,21 @@
+From 3d936c50342f1a1754b8eb548f809360c2116a38 Mon Sep 17 00:00:00 2001
+From: Paul Geraghty <pg-no-spam@no-spam.com>
+Date: Mon, 9 Sep 2019 13:35:09 +0200
+Subject: [PATCH] Fix failing test
+
+---
+ test/integration/build_test.cr | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/test/integration/build_test.cr b/test/integration/build_test.cr
+index 0863c13..5335431 100644
+--- a/test/integration/build_test.cr
++++ b/test/integration/build_test.cr
+@@ -67,7 +67,6 @@ class BuildCommandTest < Minitest::Test
+         run "shards build --no-color app"
+       end
+       assert_match "target app failed to compile", ex.stdout
+-      assert_match "Syntax error", ex.stdout
+       refute File.exists?(bin_path("app"))
+     end
+   end

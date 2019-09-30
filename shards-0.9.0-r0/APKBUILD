@@ -1,0 +1,48 @@
+# Contributor: Jakub Jirutka <jakub@jirutka.cz>
+# Contributor: Milan P. Stanić <mps@arvanta.net>
+# Maintainer: Jakub Jirutka <jakub@jirutka.cz>
+pkgname=shards
+pkgver=0.9.0
+pkgrel=0
+_minitestver=0.4.2
+pkgdesc="Dependency manager for the Crystal language"
+url="https://github.com/crystal-lang/shards"
+arch="x86_64 aarch64"  # limited by crystal aport
+license="Apache-2.0"
+depends="crystal git"
+makedepends="yaml-dev"
+subpackages="$pkgname-doc"
+source="$pkgname-$pkgver.tar.gz::https://github.com/crystal-lang/$pkgname/archive/v$pkgver.tar.gz
+	minitest.cr-$_minitestver.tar.gz::https://github.com/ysbaddaden/minitest.cr/archive/v$_minitestver.tar.gz
+	3d936c50342f1a1754b8eb548f809360c2116a38.patch"
+builddir="$srcdir/$pkgname-$pkgver"
+
+export CRYSTAL_CACHE_DIR="$srcdir/.cache"
+
+prepare() {
+	default_prepare
+	cd "$builddir"
+
+	mkdir -p lib
+	ln -s ../../minitest.cr-$_minitestver lib/minitest
+}
+
+build() {
+	cd "$builddir"
+	make
+}
+
+check() {
+	cd "$builddir"
+	export EMAIL="Test User <user@example.com>"
+	make test_integration
+}
+
+package() {
+	cd "$builddir"
+	make install DESTDIR="$pkgdir" PREFIX=/usr
+}
+
+sha512sums="a06579f1a96cea1fb1ba97c17ae4529439fb7c54572e74b4969921b1a987a1e1be9c9eb8569db94fd4cb4adc098b3085abfd2a6f7015da7f39611a1774d30022  shards-0.9.0.tar.gz
+04eeedbefe017ab41b802514313c62a4673bfffc9f4877b18083d0978666ec2d24cc86dc90db75b2d55d277266a3aac29f237f61e4bab5c4626783a1d54b136a  minitest.cr-0.4.2.tar.gz
+38156d728286574046865f7d18de9af85470a9479a8611954765204dc8e0873da420d4d8c81cc62c00bf9e4f8f4db9ada258724461134410e2213d6226de059a  3d936c50342f1a1754b8eb548f809360c2116a38.patch"
