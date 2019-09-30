@@ -13,8 +13,8 @@ Each tag links to the relevant Dockerfile.
 
 |    Tag    | Crystal version  | Alpine version |
 |   :---:   |      :---:       |     :---:      |
-| [`edge`](https://github.com/pgeraghty/alpine-crystal-docker/blob/master/crystal_latest-alpine_edge.Dockerfile)  |     0.30.1-r1    |     edge       |
-| [`latest`](https://github.com/pgeraghty/alpine-crystal-docker/blob/master/crystal_0.30-alpine_3.10.Dockerfile)  |     0.30.1-r1    |     v3.10       |
+| [`latest`](https://github.com/pgeraghty/alpine-crystal-docker/blob/master/crystal_0.31-alpine_3.10.Dockerfile)  |     0.31.0-r0    |     v3.10       |
+| [`0.31`](https://github.com/pgeraghty/alpine-crystal-docker/blob/master/crystal_0.31-alpine_3.10.Dockerfile)  |     0.31.0-r0    |     v3.10       |
 | [`0.30`](https://github.com/pgeraghty/alpine-crystal-docker/blob/master/crystal_0.30-alpine_3.10.Dockerfile)      |     0.30.1-r1    |     v3.10       |
 | [`0.29`](https://github.com/pgeraghty/alpine-crystal-docker/blob/master/crystal_0.29-alpine_3.10.Dockerfile)      |     0.29.0-r0    |     v3.10      |
 | [`0.27`](https://github.com/pgeraghty/alpine-crystal-docker/blob/master/crystal_0.27-alpine_3.9.Dockerfile)       |     0.27.0-r0    |     v3.9       |
