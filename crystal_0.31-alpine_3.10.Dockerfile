@@ -2,6 +2,7 @@ FROM alpine:3.10
 
 RUN echo '@edge http://dl-cdn.alpinelinux.org/alpine/edge/community' >> /etc/apk/repositories \
     && apk add --no-cache --force-overwrite \
+        build-base \
         crystal@edge~=0.31 \
         g++ \
         gc-dev \
